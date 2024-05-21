@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort Visualization</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Bubble Sort Visualization</h1>
+        <canvas id="bubbleSortCanvas" width="800" height="400"></canvas>
+        <button class="btn btn-primary mt-3" onclick="startSorting()">Start Sorting</button>
+    </div>
+
+    <script>
+        let arr = [4, 6, 3, 7, 2, 0, 5, 8]; // Array to be sorted
+        let canvas = document.getElementById('bubbleSortCanvas');
+        let ctx = canvas.getContext('2d');
+        let barWidth = 10;
+        let barMargin = 5;
+        let frameRate = 10;
+
+        function drawArray() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < arr.length; i++) {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(i * (barWidth + barMargin), canvas.height - arr[i], barWidth, arr[i]);
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function bubbleSort() {
+            let n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        // Swap arr[j] and arr[j+1]
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+
+                        drawArray();
+                        await sleep(frameRate);
+                    }
+                }
+            }
+        }
+
+        function startSorting() {
+            arr = [];
+            for (let i = 0; i < canvas.width / (barWidth + barMargin); i++) {
+                arr.push(Math.floor(Math.random() * (canvas.height - 10)) + 10);
+            }
+            drawArray();
+            bubbleSort();
+        }
+    </script>
+</body>
+</html>

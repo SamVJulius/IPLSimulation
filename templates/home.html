@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Information Carousel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="playerCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for player, player_data in data.items() %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;" class="player-profile">
+                                <img style="height: 100px;width: 75px;" src="../static/image.png" alt="">
+                            <h5 class="card-title">{{ player_data.displayName }}</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Bat Style:</strong> {{ player_data.batStyle }}</li>
+                                <li class="list-group-item"><strong>Bowl Style:</strong> {{ player_data.bowlStyle }}</li>
+                                <li class="list-group-item"><strong>Bat Runs Total:</strong> {{ player_data.batRunsTotal }}</li>
+                                <li class="list-group-item"><strong>Bowl Runs Total:</strong> {{ player_data.bowlRunsTotal }}</li>
+                                <li class="list-group-item"><strong>Bat Outs Total:</strong> {{ player_data.batOutsTotal }}</li>
+                                <li class="list-group-item"><strong>Bowl Outs Total:</strong> {{ player_data.bowlOutsTotal }}</li>
+                                <li class="list-group-item"><strong>Catches:</strong> {{ player_data.catches }}</li>
+                                <li class="list-group-item"><strong>Captained:</strong> {{ player_data.captained }}</li>
+                                <li class="list-group-item"><strong>Matches:</strong> {{ player_data.matches }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#playerCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#playerCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="text-center mt-4">
+        <button onclick="markAsSold()" class="btn btn-primary btn-lg">SOLD</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function markAsSold() {
+            var playerName = document.querySelector(".carousel-item.active .card-title");
+            playerName.innerHTML = playerName.innerHTML.strike() + " SOLD";
+            // Reduce opacity of rest of the text
+            playerName.style.opacity = "0.5";
+        }
+    </script>
+</body>
+</html>

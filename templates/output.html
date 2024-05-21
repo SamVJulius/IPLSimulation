@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .heading {
+            text-align: center;
+        }
+
+        #output {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        // Get the list of output elements from Flask
+        var outputList = {{ output_list|tojson }};
+
+        // Function to display each element with a delay
+        function displayOutput() {
+            var outputDiv = document.getElementById('output');
+            var index = 0;
+            var interval = setInterval(function() {
+                if (index < outputList.length) {
+                    outputDiv.innerHTML += outputList[index] + '<br>';
+                    index++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 20); // Change 1000 to the delay time you want in milliseconds (e.g., 2000 for 2 seconds)
+        }
+
+        // Call the displayOutput function when the page loads
+        window.onload = function() {
+            displayOutput();
+        };
+    </script>
+</head>
+<body>
+    <!-- Output will be displayed here -->
+    <div class="heading">
+        <h1>Virtual Cricket League</h1>
+    </div>
+    <div id="output"></div>
+</body>
+</html>
