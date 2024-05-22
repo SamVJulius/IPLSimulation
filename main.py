@@ -4,63 +4,6 @@ import copy
 import sys 
 import json
 
-
-#NEXT UPDATE -
-#ADD NO-BALLS
-#ADD BYES/LEGBYES
-#SHOW NOT OUT IF CAME IN BUT DIDN'T BAT
-#FIX BOWLING SELECTION
-#If bowling rate is less than x then dont bowl
-#IMPROVE BOWLER ROTATION
-#If RRR is low in the last 10, team may falter, fix it
-#designate 6 bowlers and bowl them in a shuffled
-#see for localBattingOrder
-
-#K Williamson bowling
-
-#TRANSLATE RATING TO DEN AVG, OUT AVG, ETC.
-
-#BIPUL SHARMA - OVERPOWERED AND SO ->
-# - 1. MAKE SURE PLAYER HAS PLAYED X NUMBER OF GAMES OR ELSE DRIVE DOWN HIS RATINGS (such as avgs, dens, etc.) (!!!IMPORTANT)
-# - 2. DO FOR BOTH BATTING & BOWLING SEPARATELY
-#BAD PLAYERS GETTING GOOD SCORES DURING CHASE, SEE TO THAT (RELATED TO PREV ONE, REDUCE PLAYERS
-# WHO HAVE PLAYED A FEW GAMES' 6s, 4s, RATE AND INCREASE OUT AVG AND 0s, 1s)
-#CHECK IF PLAYER HAS PLAYED LESS THAN X NUMBER OF BALLS, OR BOWLED LESS THAN X NUMBER OF BALLS
-#IF BAT RUNS 0, OR VERY LOW, CREATE FILLER WHICH IS VERY BAD FOR BATTING (highs 0s,1s, outavg, low 4s, 6s: see other
-#tail-enders for reference)
-
-#Triple not out
-#not many 100s
-#12-over rule
-#too many dots (increase 1s & 2s, reduce 0s)
-#too many all-outs
-
-#Last 10 overs both innings very slow even when 1-2 wickets fall (too many wickets fall)
-#weigh economy more, if eco is like 6 or 7, then bowl over a player with 1 wicket but 9 economy
-#dont drag game too long if rrr < 9 in last 3-4 overs
-
-#IMP
-#12-17 over increase rate (1st innings) & (2nd innings too)
-#Wickets (140s scores with 3 wickets in 1st innings - fix it (apply 2nd inn logic))
-
-#FEATURES
-#Commentary
-#GUI
-#Super overs
-#Better rotation
-#Venue
-#Six distance
-#Type of shot
-#Match summaries
-#i will ask different people for shot selection of players and then average them out while eliminating outliers
-#Add option to add custom players by fabricating stats
-#Screenshot (207) for pitch stats
-#Focus more on pitches, attach pitches to venues, pitch detoriation
-#performance affects all time stats
-
-#LONGSHOTS
-#Add ratings for players
-#Player analysis by phases
 from tabulate import tabulate
 
 target = 1 
@@ -158,7 +101,6 @@ def pitchInfo(venue, typeOfPitch):
 
 def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, dew, detoriate):
     global target, innings1Balls, innings1Runs, innings1Batting, innings2Batting, winner, winMsg, innings1Battracker, innings1Bowltracker, innings1Log
-    # print(battingName, bowlingName, pace, spin, outfield, dew, detoriate+"\n")
     bowlerTracker = {} #add names of all in innings def
     batterTracker = {} #add names of all in innings def
     battingOrder = []
@@ -185,21 +127,12 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
             outObj[out] = i['batOutTypes'][out] / i['batBallsTotal']
         i['batOutTypesObject'] = outObj
 
-        # for styles in i['byBowler']:
+        
 
-        #     runObj2 = {}
-        #     outObj2 = {}
-        #     batOutsRate = i['byBowler'][styles]['batOutsTotal'] / \
-        #         i['byBowler'][styles]['batBallsTotal']
-        #     i['byBowler'][styles]['batOutsRate'] = batOutsRate
-        #     for run in i['byBowler'][styles]['batRunDenominations']:
-        #         runObj2[run] = i['byBowler'][styles]['batRunDenominations'][run] / \
-        #             i['byBowler'][styles]['batBallsTotal']
-        #     i['byBowler'][styles]['batRunDenominationsObject'] = runObj2
-        #     for out in i['byBowler'][styles]['batOutTypes']:
-        #         outObj2[out] = i['byBowler'][styles]['batOutTypes'][out] / \
-        #             i['byBowler'][styles]['batBallsTotal']
-        #     i['byBowler'][styles]['batOutTypesObject'] = outObj2
+
+
+
+
 
         i['batOutsRate'] = i['batOutsTotal'] / i['batBallsTotal']
 
@@ -741,44 +674,7 @@ def innings1(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
 
                 getOutcome(denAvg, outAvg, over)
 
-        # else(balls >= 36 and balls < 102):
-        #     if(wickets == 0 or wickets == 1):
-        #         defenseAndOneAdjustment = random.uniform(0.07, 0.11)
-        #         denAvg['0'] -= defenseAndOneAdjustment * (2/3)
-        #         denAvg['1'] -= defenseAndOneAdjustment * (1/3)
-        #         denAvg['4'] += defenseAndOneAdjustment * (2/3)
-        #         denAvg['6'] += defenseAndOneAdjustment * (1/3)
-        #         getOutcome(denAvg, outAvg, over)
-        #     else:
-        #         # defenseAndOneAdjustment = random.uniform(0.03, 0.08)
-        #         denAvg['0'] += 0.03
-        #         # denAvg['1'] -= defenseAndOneAdjustment * (1/3)
-        #         denAvg['4'] -= 0.03
-        #         # denAvg['6'] += defenseAndOneAdjustment * (0.5/3)
-        #         outAvg -= 0.06
-        #         getOutcome(denAvg, outAvg, over)
-
-
-
-        #     if(wickets == 0):
-        #         adjust = random.uniform(0.06, 0.11)
-        #         denAvg['0'] -= adjust * (1/3)
-        #         denAvg['4'] += adjust * (1.5/3)
-        #         denAvg['2'] += adjust * (0.5/3)
-        #         denAvg['6'] += adjust * (1/3)
-        #         outAvg += 0.02
-        #         getOutcome(denAvg, outAvg, over)
-        #     else:
-        #         adjust = random.uniform(0.04, 0.8)
-        #         denAvg['1'] += adjust * (1/3) * (wickets / 2)
-        #         denAvg['4'] -= adjust * (2/3) * (wickets / 2)
-        #         denAvg['6'] -= adjust * (1/3) * (wickets / 2)  
-        #         denAvg['2'] += adjust * (1/3) * (wickets / 2)
-        #         denAvg['0'] += adjust * (1/3) * (wickets / 2)
-
-        #         outAvg -= adjust * (1/3) * (wickets)
-        #         # print(adjust * (1/3) * (wickets/2))
-        #         getOutcome(denAvg, outAvg, over)
+        
 
 
 
@@ -2295,7 +2191,7 @@ def game(manual=True, sentTeamOne=None, sentTeamTwo=None, switch="group"):
         0], pitchInfo_[1], pitchInfo_[2]
     battingFirst = doToss(paceFactor, spinFactor, outfield,
                           secondInnDew, pitchDetoriate, typeOfPitch, team1, team2)
-    print(paceFactor, spinFactor, outfield,"\n")
+    # print(paceFactor, spinFactor, outfield,"\n")
 
     def getBatting():
         if(battingFirst == 0):
