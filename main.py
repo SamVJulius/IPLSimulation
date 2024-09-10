@@ -1723,45 +1723,6 @@ def innings2(batting, bowling, battingName, bowlingName, pace, spin, outfield, d
                 winMsg = f"{bowlingName} won by {(target - 1) - runs} runs"
 
 
-        # elif(balls >= 36 and balls < 102):
-        #     if(wickets == 0 or wickets == 1):
-        #         defenseAndOneAdjustment = random.uniform(0.07, 0.11)
-        #         denAvg['0'] -= defenseAndOneAdjustment * (2/3)
-        #         denAvg['1'] -= defenseAndOneAdjustment * (1/3)
-        #         denAvg['4'] += defenseAndOneAdjustment * (2/3)
-        #         denAvg['6'] += defenseAndOneAdjustment * (1/3)
-        #         getOutcome(denAvg, outAvg, over)
-        #     else:
-        #         # defenseAndOneAdjustment = random.uniform(0.03, 0.08)
-        #         denAvg['0'] += 0.03
-        #         # denAvg['1'] -= defenseAndOneAdjustment * (1/3)
-        #         denAvg['4'] -= 0.03
-        #         # denAvg['6'] += defenseAndOneAdjustment * (0.5/3)
-        #         outAvg -= 0.06
-        #         getOutcome(denAvg, outAvg, over)
-
-
-
-        #     if(wickets == 0):
-        #         adjust = random.uniform(0.06, 0.11)
-        #         denAvg['0'] -= adjust * (1/3)
-        #         denAvg['4'] += adjust * (1.5/3)
-        #         denAvg['2'] += adjust * (0.5/3)
-        #         denAvg['6'] += adjust * (1/3)
-        #         outAvg += 0.02
-        #         getOutcome(denAvg, outAvg, over)
-        #     else:
-        #         adjust = random.uniform(0.04, 0.8)
-        #         denAvg['1'] += adjust * (1/3) * (wickets / 2)
-        #         denAvg['4'] -= adjust * (2/3) * (wickets / 2)
-        #         denAvg['6'] -= adjust * (1/3) * (wickets / 2)  
-        #         denAvg['2'] += adjust * (1/3) * (wickets / 2)
-        #         denAvg['0'] += adjust * (1/3) * (wickets / 2)
-
-        #         outAvg -= adjust * (1/3) * (wickets)
-        #         # print(adjust * (1/3) * (wickets/2))
-        #         getOutcome(denAvg, outAvg, over)
-
 
 
 
